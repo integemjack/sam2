@@ -66,4 +66,4 @@ STOPSIGNAL SIGTERM
 
 
 #CMD sudo service ssh start && /bin/bash
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser"]
+CMD ["sudo", "jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser"]
