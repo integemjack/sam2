@@ -49,6 +49,11 @@ WORKDIR /home/user
 
 RUN python3 -m pip install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
 
+RUN git clone https://github.com/NVIDIA-AI-IOT/nanosam && \
+    cd nanosam && \
+    python3 setup.py develop --user
+RUN python3 -m pip install transformers
+
 RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
     cd segment-anything-2 && \
     python3 -m pip install -e . -v && \
