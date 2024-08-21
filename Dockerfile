@@ -8,14 +8,14 @@ ENV PATH="${PATH}:/home/user/.local/bin"
 # We love UTF!
 ENV LANG C.UTF-8
 
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+# RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
-# Set the nvidia container runtime environment variables
-ENV NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all}
-ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
-ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
-ENV CUDA_HOME="/usr/local/cuda"
-ENV TORCH_CUDA_ARCH_LIST="6.0 6.1 7.0 7.5 8.0 8.6+PTX 8.6 8.7 8.9"
+# # Set the nvidia container runtime environment variables
+# ENV NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all}
+# ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+# ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
+# ENV CUDA_HOME="/usr/local/cuda"
+# ENV TORCH_CUDA_ARCH_LIST="6.0 6.1 7.0 7.5 8.0 8.6+PTX 8.6 8.7 8.9"
 
 # Install some handy tools. Even Guvcview for webcam support!
 RUN set -x \
