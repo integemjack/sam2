@@ -45,17 +45,12 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 
 
 RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
 
-# 安装torch gpu版本
-RUN apt-get update && apt-get install -y \
-    libopenmpi-dev \
-    libcublas11-11-7 \
-    libnccl2 \
-    libnccl-dev
-
-RUN wget https://download.pytorch.org/libtorch/cu113/libtorch-cxx11 ABI-shared-linux-x86_64.tar.gz
+# 下载PyTorch的CUDA 11.4版本
+RUN wget https://download.pytorch.org/libtorch/cu114/libtorch-cxx11 ABI-shared-linux-x86_64.tar.gz
 RUN tar xzvf libtorch-cxx11 ABI-shared-linux-x86_64.tar.gz -C /usr/local/
 RUN ln -s /usr/local/libtorch-cxx11 ABI-shared-linux-x86_64/lib/libtorch.so.1.12.0 /usr/local/lib/libtorch.so.1.12.0
 
+# 安装PyTorch
 RUN pip3 install torch torchvision torchaudio
 
 WORKDIR /home/user
