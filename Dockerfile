@@ -11,7 +11,7 @@ ENV LANG C.UTF-8
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
 # Set the nvidia container runtime environment variables
-ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all}
 ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
 ENV CUDA_HOME="/usr/local/cuda"
