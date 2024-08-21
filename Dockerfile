@@ -1,8 +1,6 @@
 # Use an NVIDIA CUDA image as the base
 FROM nvidia/cuda:11.4.3-devel-ubuntu20.04
 
-RUN nvcc --version
-
 # Set up environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH="${PATH}:/home/user/.local/bin"
@@ -12,24 +10,24 @@ ENV LANG C.UTF-8
 
 # RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
-# # Set the nvidia container runtime environment variables
-# ENV NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all}
-# ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
-# ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
-# ENV CUDA_HOME="/usr/local/cuda"
-# ENV TORCH_CUDA_ARCH_LIST="6.0 6.1 7.0 7.5 8.0 8.6+PTX 8.6 8.7 8.9"
+# Set the nvidia container runtime environment variables
+ENV NVIDIA_VISIBLE_DEVICES ${NVIDIA_VISIBLE_DEVICES:-all}
+ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
+ENV CUDA_HOME="/usr/local/cuda"
+ENV TORCH_CUDA_ARCH_LIST="6.0 6.1 7.0 7.5 8.0 8.6+PTX 8.6 8.7 8.9"
 
 # Install some handy tools. Even Guvcview for webcam support!
 RUN set -x \
-	&& apt-get update \
-	&& apt-get install -y apt-transport-https ca-certificates \
-	&& apt-get install -y git vim tmux nano htop sudo curl wget gnupg2 \
-	&& apt-get install -y bash-completion \
-	&& apt-get install -y guvcview \
-	&& rm -rf /var/lib/apt/lists/* \
-	&& useradd -ms /bin/bash user \
-	&& echo "user:user" | chpasswd && adduser user sudo \
-	&& echo "user ALL=(ALL) NOPASSWD: ALL " >> /etc/sudoers
+    && apt-get update \
+    && apt-get install -y apt-transport-https ca-certificates \
+    && apt-get install -y git vim tmux nano htop sudo curl wget gnupg2 \
+    && apt-get install -y bash-completion \
+    && apt-get install -y guvcview \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd -ms /bin/bash user \
+    && echo "user:user" | chpasswd && adduser user sudo \
+    && echo "user ALL=(ALL) NOPASSWD: ALL " >> /etc/sudoers
 
 RUN set -x \
     && apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
@@ -47,6 +45,19 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 
 
 RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
 
+# 安装torch gpu版本
+RUN apt-get update && apt-get install -y \
+    libopenmpi-dev \
+    libcublas11-11-7 \
+    libnccl2 \
+    libnccl-dev
+
+RUN wget https://download.pytorch.org/libtorch/cu113/libtorch-cxx11 ABI-shared-linux-x86_64.tar.gz
+RUN tar xzvf libtorch-cxx11 ABI-shared-linux-x86_64.tar.gz -C /usr/local/
+RUN ln -s /usr/local/libtorch-cxx11 ABI-shared-linux-x86_64/lib/libtorch.so.1.12.0 /usr/local/lib/libtorch.so.1.12.0
+
+RUN pip3 install torch torchvision torchaudio
+
 WORKDIR /home/user
 
 RUN python3 -m pip install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
@@ -62,12 +73,12 @@ RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
     python3 -m pip install -e ".[demo]" && \
     cd checkpoints && ./download_ckpts.sh && cd ..
 
-# RUN usermod -aG dialout user
-# USER user
-# STOPSIGNAL SIGTERM
-RUN nvcc --version
+RUN usermod -aG dialout user
+USER user
+STOPSIGNAL SIGTERM
+# RUN nvcc --version
 
 #CMD sudo service ssh start && /bin/bash
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser"]
+CMD ["sudo", "jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser"]
 
 # docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix  -e DISPLAY=$DISPLAY --gpus all -p 8888:8888 sam2:latest
