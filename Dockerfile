@@ -46,7 +46,7 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 
 RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
 
 # 下载PyTorch的CUDA 11.4版本
-RUN python3 -m pip install torch==1.12.1+cu114 torchvision==0.13.1+cu114 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu114
+RUN python3 -m pip install torch==1.12.1+cu116 torchvision==0.13.1+cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116
 
 WORKDIR /home/user
 
