@@ -1,5 +1,5 @@
 # Use an NVIDIA CUDA image as the base
-FROM nvidia/cuda:11.6.1-devel-ubuntu20.04
+FROM nvidia/cuda:11.4.3-devel-ubuntu20.04
 
 # Set up environment variables
 ENV DEBIAN_FRONTEND=noninteractive
