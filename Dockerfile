@@ -62,12 +62,12 @@ RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
     python3 -m pip install -e ".[demo]" && \
     cd checkpoints && ./download_ckpts.sh && cd ..
 
-RUN usermod -aG dialout user
-USER user
-STOPSIGNAL SIGTERM
-
+# RUN usermod -aG dialout user
+# USER user
+# STOPSIGNAL SIGTERM
+RUN nvcc --version
 
 #CMD sudo service ssh start && /bin/bash
-CMD ["sudo", "jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser"]
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser"]
 
 # docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix  -e DISPLAY=$DISPLAY --gpus all -p 8888:8888 sam2:latest
