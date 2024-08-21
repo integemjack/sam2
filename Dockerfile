@@ -1,6 +1,8 @@
 # Use an NVIDIA CUDA image as the base
 FROM nvidia/cuda:11.4.3-devel-ubuntu20.04
 
+RUN nvcc --version
+
 # Set up environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH="${PATH}:/home/user/.local/bin"
