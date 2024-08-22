@@ -57,8 +57,8 @@ WORKDIR /home/user
 
 RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
     cd segment-anything-2 && \
-    # pip install -e . -v && \
-    # pip install -e ".[demo]" && \
+    pip install -e . -v && \
+    pip install -e ".[demo]" && \
     cd checkpoints && ./download_ckpts.sh && cd ..
 
 # RUN pip install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
