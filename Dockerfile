@@ -33,7 +33,7 @@ RUN set -x \
     # && echo "user ALL=(ALL) NOPASSWD: ALL " >> /etc/sudoers
 
 RUN set -x \
-    && apt-get update && apt-get install ffmpeg libsm6 libxext6 -y
+    && apt-get update && apt-get install ffmpeg libsm6 libxext6 python3-pip -y
 
 # RUN set -x \
 #     && apt-get update \
