@@ -45,10 +45,6 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 
 
 RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
 
-# 下载PyTorch的CUDA 11.4版本
-# RUN python3 -m pip install torch==1.12.1+cu116 torchvision==0.13.1+cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116
-RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-
 WORKDIR /home/user
 
 RUN python3 -m pip install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
@@ -63,6 +59,10 @@ RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
     python3 -m pip install -e . -v && \
     python3 -m pip install -e ".[demo]" && \
     cd checkpoints && ./download_ckpts.sh && cd ..
+
+# 下载PyTorch的CUDA 11.4版本
+# RUN python3 -m pip install torch==1.12.1+cu116 torchvision==0.13.1+cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116
+RUN python3 -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
 RUN usermod -aG dialout user
 USER user
