@@ -69,12 +69,12 @@ WORKDIR /home/user
 
 RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
     cd segment-anything-2 && \
-    pip3 install -e . -v && \
-    pip3 install -e ".[demo]" && \
+    pip install -e . -v && \
+    pip install -e ".[demo]" && \
     cd checkpoints && ./download_ckpts.sh && cd ..
 
-RUN pip3 install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
-RUN pip3 install torch torchvision torchaudio
+RUN pip install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
+RUN pip install torch torchvision torchaudio
 
 # RUN git clone --recursive https://github.com/pytorch/pytorch \
 # && cd pytorch \
