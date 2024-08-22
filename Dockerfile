@@ -1,5 +1,5 @@
 # Use an NVIDIA CUDA image as the base
-FROM nvidia/cuda:11.4.3-devel-ubuntu20.04
+FROM nvidia/cuda:12.1.0-devel-ubuntu20.04
 
 # Set up environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -47,6 +47,7 @@ RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
 
 # 下载PyTorch的CUDA 11.4版本
 # RUN python3 -m pip install torch==1.12.1+cu116 torchvision==0.13.1+cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116
+RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
 WORKDIR /home/user
 
