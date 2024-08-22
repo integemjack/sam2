@@ -1,7 +1,8 @@
 # Use an NVIDIA CUDA image as the base
 # FROM nvidia/cuda:12.1.0-devel-ubuntu20.04
 # FROM nvcr.io/nvidia/l4t-cuda:12.2.12-devel
-FROM nvcr.io/nvidia/pytorch:24.05-py3
+# FROM nvcr.io/nvidia/pytorch:24.05-py3
+FROM nvcr.io/nvidia/cuda:12.2.2-devel-ubuntu22.04
 
 # Set up environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -34,18 +35,18 @@ RUN set -x \
 RUN set -x \
     && apt-get update && apt-get install ffmpeg libsm6 libxext6 -y
 
-# RUN set -x \
-#     && apt-get update \
-#     && apt-get install -y software-properties-common \
-#     && add-apt-repository ppa:deadsnakes/ppa \
-#     && apt-get update \
-#     && apt-get install -y python3.11 python3.11-venv python3.11-dev \
-#     && apt-get install -y python3.11-tk
+RUN set -x \
+    && apt-get update \
+    && apt-get install -y software-properties-common \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt-get update \
+    && apt-get install -y python3.11 python3.11-venv python3.11-dev \
+    && apt-get install -y python3.11-tk
 
 # RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 \
 #     && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 2
 
-# RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
+RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
 # RUN curl -sS https://bootstrap.pypa.io/get-pip.py
 
 WORKDIR /home/user
@@ -55,25 +56,25 @@ WORKDIR /home/user
 #     python3 setup.py develop --user
 # RUN python3 -m pip install transformers
 
-COPY ./segment-anything-2 /home/user/segment-anything-2
+# COPY ./segment-anything-2 /home/user/segment-anything-2
 
-WORKDIR /home/user/segment-anything-2
-RUN pip install -e . -v
-RUN pip install -e ".[demo]"
+# WORKDIR /home/user/segment-anything-2
+# RUN pip install -e . -v
+# RUN pip install -e ".[demo]"
 
-WORKDIR /home/user/segment-anything-2/checkpoints
-RUN ./download_ckpts.sh
+# WORKDIR /home/user/segment-anything-2/checkpoints
+# RUN ./download_ckpts.sh
 
-WORKDIR /home/user
+# WORKDIR /home/user
 
-# RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
-#     cd segment-anything-2 && \
-#     pip install -e . -v && \
-#     pip install -e ".[demo]" && \
-#     cd checkpoints && ./download_ckpts.sh && cd ..
+RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
+    cd segment-anything-2 && \
+    pip3 install -e . -v && \
+    pip3 install -e ".[demo]" && \
+    cd checkpoints && ./download_ckpts.sh && cd ..
 
-# RUN pip install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
-# RUN pip3 install torch torchvision torchaudio
+RUN pip3 install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
+RUN pip3 install torch torchvision torchaudio
 
 # RUN git clone --recursive https://github.com/pytorch/pytorch \
 # && cd pytorch \
