@@ -1,7 +1,7 @@
 # Use an NVIDIA CUDA image as the base
 # FROM nvidia/cuda:12.1.0-devel-ubuntu20.04
-FROM nvcr.io/nvidia/l4t-cuda:12.2.12-devel
-# FROM nvcr.io/nvidia/pytorch:24.05-py3
+# FROM nvcr.io/nvidia/l4t-cuda:12.2.12-devel
+FROM nvcr.io/nvidia/pytorch:24.05-py3
 # FROM nvcr.io/nvidia/ai-workbench/pytorch:1.0.2
 
 # Set up environment variables
@@ -33,7 +33,7 @@ RUN set -x \
     # && echo "user ALL=(ALL) NOPASSWD: ALL " >> /etc/sudoers
 
 RUN set -x \
-    && apt-get update && apt-get install ffmpeg libsm6 libxext6 python3-pip -y
+    && apt-get update && apt-get install ffmpeg libsm6 libxext6 -y
 
 # RUN set -x \
 #     && apt-get update \
