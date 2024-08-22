@@ -91,7 +91,7 @@ RUN pip install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
 
 # 下载PyTorch的CUDA 11.4版本
 # RUN python3 -m pip install torch==1.12.1+cu116 torchvision==0.13.1+cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116
-RUN pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1
+# RUN pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1
 # RUN python3 -c "import torch; print(torch.cuda.is_available());"
 
 # RUN usermod -aG dialout user
