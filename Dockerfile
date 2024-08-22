@@ -3,7 +3,7 @@
 FROM nvcr.io/nvidia/l4t-cuda:12.2.12-devel
 
 # Set up environment variables
-# ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 # ENV PATH="${PATH}:/home/user/.local/bin"
 
 # We love UTF!
