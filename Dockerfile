@@ -1,6 +1,6 @@
 # Use an NVIDIA CUDA image as the base
 # FROM nvidia/cuda:12.1.0-devel-ubuntu20.04
-FROM nvcr.io/nvidia/cuda:12.2.2-devel-ubuntu22.04
+FROM nvcr.io/nvidia/l4t-cuda:12.2.12-devel
 
 # Set up environment variables
 # ENV DEBIAN_FRONTEND=noninteractive
