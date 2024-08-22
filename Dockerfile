@@ -74,7 +74,7 @@ RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
     cd checkpoints && ./download_ckpts.sh && cd ..
 
 RUN pip install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
-RUN pip install torch torchvision torchaudio
+RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu122
 
 # RUN git clone --recursive https://github.com/pytorch/pytorch \
 # && cd pytorch \
