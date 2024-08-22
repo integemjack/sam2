@@ -1,7 +1,7 @@
 # Use an NVIDIA CUDA image as the base
 # FROM nvidia/cuda:12.1.0-devel-ubuntu20.04
 # FROM nvcr.io/nvidia/l4t-cuda:12.2.12-devel
-FROM nvcr.io/nvidia/pytorch:23.08-py3
+FROM nvcr.io/nvidia/pytorch:23.09-py3
 
 # Set up environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -55,22 +55,22 @@ WORKDIR /home/user
 #     python3 setup.py develop --user
 # RUN python3 -m pip install transformers
 
-# COPY ./segment-anything-2 /home/user/segment-anything-2
+COPY ./segment-anything-2 /home/user/segment-anything-2
 
-# WORKDIR /home/user/segment-anything-2
-# RUN pip install -e . -v
-# RUN pip install -e ".[demo]"
+WORKDIR /home/user/segment-anything-2
+RUN pip install -e . -v
+RUN pip install -e ".[demo]"
 
-# WORKDIR /home/user/segment-anything-2/checkpoints
-# RUN ./download_ckpts.sh
+WORKDIR /home/user/segment-anything-2/checkpoints
+RUN ./download_ckpts.sh
 
-# WORKDIR /home/user
+WORKDIR /home/user
 
-RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
-    cd segment-anything-2 && \
-    pip install -e . -v && \
-    pip install -e ".[demo]" && \
-    cd checkpoints && ./download_ckpts.sh && cd ..
+# RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
+#     cd segment-anything-2 && \
+#     pip install -e . -v && \
+#     pip install -e ".[demo]" && \
+#     cd checkpoints && ./download_ckpts.sh && cd ..
 
 # RUN pip install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
 # RUN pip3 install torch torchvision torchaudio
