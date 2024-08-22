@@ -2,7 +2,7 @@
 # FROM nvidia/cuda:12.1.0-devel-ubuntu20.04
 # FROM nvcr.io/nvidia/l4t-cuda:12.2.12-devel
 # FROM nvcr.io/nvidia/pytorch:24.05-py3
-FROM nvcr.io/nvidia/l4t-cuda:12.2.2-devel-arm64-ubuntu22.04
+FROM nvcr.io/nvidia/ai-workbench/pytorch:1.0.2
 
 # Set up environment variables
 ENV DEBIAN_FRONTEND=noninteractive
