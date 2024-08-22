@@ -20,13 +20,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 # ENV TORCH_CUDA_ARCH_LIST="6.0 6.1 7.0 7.5 8.0 8.6+PTX 8.6 8.7 8.9"
 
 # Install some handy tools. Even Guvcview for webcam support!
-RUN set -x \
-    && apt-get update \
-    && apt-get install -y apt-transport-https ca-certificates \
-    && apt-get install -y git vim tmux nano htop sudo curl wget gnupg2 \
-    && apt-get install -y bash-completion \
-    && apt-get install -y guvcview \
-    && rm -rf /var/lib/apt/lists/* 
+# RUN set -x \
+#     && apt-get update \
+#     && apt-get install -y apt-transport-https ca-certificates \
+#     && apt-get install -y git vim tmux nano htop sudo curl wget gnupg2 \
+#     && apt-get install -y bash-completion \
+#     && apt-get install -y guvcview \
+#     && rm -rf /var/lib/apt/lists/* 
     # && useradd -ms /bin/bash user \
     # && echo "user:user" | chpasswd && adduser user sudo \
     # && echo "user ALL=(ALL) NOPASSWD: ALL " >> /etc/sudoers
@@ -86,7 +86,7 @@ RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
 # RUN nvcc --version
 
 #CMD sudo service ssh start && /bin/bash
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser"]
+# CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser"]
 
 # docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix  -e DISPLAY=$DISPLAY --gpus all -p 8888:8888 sam2:latest
 # docker run --restart always -it -v /tmp/.X11-unix:/tmp/.X11-unix  -e DISPLAY=$DISPLAY --gpus all -p 8888:8888 sam2:latest
