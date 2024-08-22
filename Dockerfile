@@ -2,7 +2,7 @@
 # FROM nvidia/cuda:12.1.0-devel-ubuntu20.04
 # FROM nvcr.io/nvidia/l4t-cuda:12.2.12-devel
 # FROM nvcr.io/nvidia/pytorch:24.05-py3
-FROM nvcr.io/nvidia/cuda:12.2.2-devel-ubuntu22.04
+FROM nvcr.io/nvidia/l4t-cuda:12.2.2-devel-arm64-ubuntu22.04
 
 # Set up environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -74,7 +74,7 @@ RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
     cd checkpoints && ./download_ckpts.sh && cd ..
 
 RUN pip install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
-RUN pip install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1
+# RUN pip install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1
 
 # RUN git clone --recursive https://github.com/pytorch/pytorch \
 # && cd pytorch \
