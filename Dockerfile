@@ -1,7 +1,7 @@
 # Use an NVIDIA CUDA image as the base
 # FROM nvidia/cuda:12.1.0-devel-ubuntu20.04
 # FROM nvcr.io/nvidia/l4t-cuda:12.2.12-devel
-FROM nvcr.io/nvidia/l4t-jetpack:r36.3.0
+FROM nvcr.io/nvidia/pytorch:23.01-py3
 
 # Set up environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -64,16 +64,16 @@ RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
 RUN pip3 install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
 # RUN pip3 install torch torchvision torchaudio
 
-RUN git clone --recursive https://github.com/pytorch/pytorch \
-&& cd pytorch \
-&& pip3 install -r requirements.txt \
-&& mkdir build \
-&& cd build \
-&& cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install .. \
-&& make -j$(nproc) \
-&& make install \
-&& cd ../vision \
-&& python3 setup.py install
+# RUN git clone --recursive https://github.com/pytorch/pytorch \
+# && cd pytorch \
+# && pip3 install -r requirements.txt \
+# && mkdir build \
+# && cd build \
+# && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install .. \
+# && make -j$(nproc) \
+# && make install \
+# && cd ../vision \
+# && python3 setup.py install
 
 # 下载PyTorch的CUDA 11.4版本
 # RUN python3 -m pip install torch==1.12.1+cu116 torchvision==0.13.1+cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116
