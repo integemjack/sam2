@@ -45,6 +45,7 @@ RUN set -x \
 #     && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 2
 
 # RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
+RUN curl -sS https://bootstrap.pypa.io/get-pip.py
 
 WORKDIR /home/user
 
