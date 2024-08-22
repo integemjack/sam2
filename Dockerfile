@@ -62,7 +62,8 @@ RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
 
 # 下载PyTorch的CUDA 11.4版本
 # RUN python3 -m pip install torch==1.12.1+cu116 torchvision==0.13.1+cu116 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116
-RUN python3 -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+# RUN python3 -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+RUN python3 -c "import torch; print(torch.cuda.is_available());"
 
 RUN usermod -aG dialout user
 USER user
@@ -73,3 +74,5 @@ STOPSIGNAL SIGTERM
 CMD ["sudo", "jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser"]
 
 # docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix  -e DISPLAY=$DISPLAY --gpus all -p 8888:8888 sam2:latest
+# docker run --restart always -it -v /tmp/.X11-unix:/tmp/.X11-unix  -e DISPLAY=$DISPLAY --gpus all -p 8888:8888 sam2:latest
+# docker build -t sam2 . && docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix  -e DISPLAY=$DISPLAY --gpus all -p 8888:8888 sam2:latest python3 -c "import torch; print(torch.cuda.is_available());"
