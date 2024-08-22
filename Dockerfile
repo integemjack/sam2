@@ -20,19 +20,19 @@ ENV DEBIAN_FRONTEND=noninteractive
 # ENV TORCH_CUDA_ARCH_LIST="6.0 6.1 7.0 7.5 8.0 8.6+PTX 8.6 8.7 8.9"
 
 # Install some handy tools. Even Guvcview for webcam support!
-# RUN set -x \
-#     && apt-get update \
-#     && apt-get install -y apt-transport-https ca-certificates \
-#     && apt-get install -y git vim tmux nano htop sudo curl wget gnupg2 \
-#     && apt-get install -y bash-completion \
-#     && apt-get install -y guvcview \
-#     && rm -rf /var/lib/apt/lists/* 
+RUN set -x \
+    && apt-get update \
+    && apt-get install -y apt-transport-https ca-certificates \
+    && apt-get install -y git vim tmux nano htop sudo curl wget gnupg2 \
+    && apt-get install -y bash-completion \
+    && apt-get install -y guvcview \
+    && rm -rf /var/lib/apt/lists/* 
     # && useradd -ms /bin/bash user \
     # && echo "user:user" | chpasswd && adduser user sudo \
     # && echo "user ALL=(ALL) NOPASSWD: ALL " >> /etc/sudoers
 
-# RUN set -x \
-#     && apt-get update && apt-get install ffmpeg libsm6 libxext6 python3-pip  -y
+RUN set -x \
+    && apt-get update && apt-get install ffmpeg libsm6 libxext6 -y
 
 # RUN set -x \
 #     && apt-get update \
