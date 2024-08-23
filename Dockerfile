@@ -60,7 +60,7 @@ COPY ./segment-anything-2 /home/user/segment-anything-2
 
 WORKDIR /home/user/segment-anything-2
 RUN pip install -e . -v
-RUN pip install -e ".[demo]"
+# RUN pip install -e ".[demo]"
 
 WORKDIR /home/user/segment-anything-2/checkpoints
 RUN ./download_ckpts.sh
@@ -74,7 +74,8 @@ WORKDIR /home/user
 #     python3 -m pip install -e ".[demo]" && \
 #     cd checkpoints && ./download_ckpts.sh && cd ..
 
-# RUN pip install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
+RUN pip install jupyterlab ipywidgets jupyterlab_widgets ipycanvas matplotlib>=3.9.1 opencv-python>=4.7.0
+RUN jupyter lab clean
 
 # RUN apt-get install nvidia-smi && modprobe nvidia -v
 # RUN pip install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1
