@@ -101,6 +101,12 @@ RUN jupyter lab clean
 # STOPSIGNAL SIGTERM
 # RUN nvcc --version
 
+# 设置固定的 JupyterLab 密码
+RUN python3 -c "from notebook.auth import passwd; print(passwd('integem001'))" > /home/user/jupyter_password.txt \
+    && JUPYTER_PASSWORD=$(cat /home/user/jupyter_password.txt) \
+    && echo "c.NotebookApp.password = u'$JUPYTER_PASSWORD'" >> /root/.jupyter/jupyter_notebook_config.py \
+    && rm /home/user/jupyter_password.txt
+
 #CMD sudo service ssh start && /bin/bash
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser"]
 
