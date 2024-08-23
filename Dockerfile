@@ -35,18 +35,18 @@ RUN set -x \
 RUN set -x \
     && apt-get update && apt-get install ffmpeg libsm6 libxext6 -y
 
-# RUN set -x \
-#     && apt-get update \
-#     && apt-get install -y software-properties-common \
-#     && add-apt-repository ppa:deadsnakes/ppa \
-#     && apt-get update \
-#     && apt-get install -y python3.12 python3.12-venv python3.12-dev \
-#     && apt-get install -y python3.12-tk
+RUN set -x \
+    && apt-get update \
+    && apt-get install -y software-properties-common \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt-get update \
+    && apt-get install -y python3.11 python3.11-venv python3.11-dev \
+    && apt-get install -y python3.11-tk
 
-# RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1 \
-#     && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 2
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1 \
+    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 2
 
-# RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.12
+RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
 # RUN curl -sS https://bootstrap.pypa.io/get-pip.py
 
 WORKDIR /home/user
@@ -69,8 +69,8 @@ WORKDIR /home/user
 
 RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
     cd segment-anything-2 && \
-    pip install -e . -v && \
-    pip install -e ".[demo]" && \
+    python3 -m pip install -e . -v && \
+    python3 -m pip install -e ".[demo]" && \
     cd checkpoints && ./download_ckpts.sh && cd ..
 
 # RUN pip install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
