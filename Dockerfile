@@ -104,11 +104,12 @@ RUN jupyter lab clean
 # 安装 notebook 模块（指定版本）
 RUN pip install notebook==6.4.12
 
-# 设置固定的 JupyterLab 密码
-RUN python3 -c "from notebook.auth import passwd; print(passwd('integem001'))" > /home/user/jupyter_password.txt \
-    && JUPYTER_PASSWORD=$(cat /home/user/jupyter_password.txt) \
-    && echo "c.NotebookApp.password = u'$JUPYTER_PASSWORD'" >> /root/.jupyter/jupyter_notebook_config.py \
-    && rm /home/user/jupyter_password.txt
+# 创建 jupyter 配置目录
+RUN mkdir -p /root/.jupyter
+
+# 生成 JupyterLab 密码哈希并配置
+RUN JUPYTER_PASSWORD=$(python3 -c "from notebook.auth import passwd; print(passwd('integem001'))") \
+    && echo "c.NotebookApp.password = u'$JUPYTER_PASSWORD'" >> /root/.jupyter/jupyter_notebook_config.py
 
 #CMD sudo service ssh start && /bin/bash
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--no-browser"]
