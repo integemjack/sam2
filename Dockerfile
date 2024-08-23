@@ -101,8 +101,8 @@ RUN jupyter lab clean
 # STOPSIGNAL SIGTERM
 # RUN nvcc --version
 
-# 安装 notebook 模块以生成哈希密码
-RUN pip install notebook
+# 安装 notebook 模块（指定版本）
+RUN pip install notebook==6.4.12
 
 # 设置固定的 JupyterLab 密码
 RUN python3 -c "from notebook.auth import passwd; print(passwd('integem001'))" > /home/user/jupyter_password.txt \
