@@ -1,7 +1,7 @@
 # Use an NVIDIA CUDA image as the base
 # FROM nvidia/cuda:12.1.0-devel-ubuntu20.04
 # FROM nvcr.io/nvidia/l4t-cuda:12.2.12-devel
-FROM nvcr.io/nvidia/pytorch:24.05-py3
+FROM dustynv/l4t-pytorch:r36.2.0
 # FROM nvcr.io/nvidia/ai-workbench/pytorch:1.0.2
 
 # Set up environment variables
@@ -73,7 +73,7 @@ RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
     pip install -e ".[demo]" && \
     cd checkpoints && ./download_ckpts.sh && cd ..
 
-RUN pip install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
+# RUN pip install jupyterlab ipywidgets jupyterlab_widgets ipycanvas
 
 # RUN apt-get install nvidia-smi && modprobe nvidia -v
 # RUN pip install torch==2.0.0 torchvision==0.15.1 torchaudio==2.0.1
