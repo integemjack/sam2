@@ -67,7 +67,8 @@ WORKDIR /home/user
 
 # WORKDIR /home/user
 
-RUN git clone https://github.com/facebookresearch/segment-anything-2 && \
+RUN python3 -c "import torch; print(torch.cuda.is_available()); print(torch.__version__); print(torch.version.cuda);" && \
+    git clone https://github.com/facebookresearch/segment-anything-2 && \
     cd segment-anything-2 && \
     python3 -m pip install -e . -v && \
     python3 -m pip install -e ".[demo]" && \
